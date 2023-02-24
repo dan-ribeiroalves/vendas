@@ -1,0 +1,11 @@
+body {
+  background-image: url('../../Assets/Images/agora_vai_1x.png');
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.container-page {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}

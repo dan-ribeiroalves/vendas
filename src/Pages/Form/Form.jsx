@@ -6,7 +6,7 @@ import './FormPage.scss';
 import axios from 'axios';
 import Utils from '../../Assets/Utils';
 
-export default function FormPage() {
+export default function FormCnpj() {
   const [form] = Form.useForm();
   const onFinish = (values) => {
     console.log('Success:', values);
@@ -50,209 +50,206 @@ export default function FormPage() {
   }, []);
 
   return (
-    <div className="container-form">
-      <h1>Informações da Venda</h1>
-      <Form layout="vertical" form={form} name="cnpjForm" onFinish={onFinish} autoComplete="off">
-        <Form.Item
-          label="CNPJ"
-          name="cnpj"
-          rules={[
-            {
-              required: true,
-              validator: (rule, value) => {
-                const isValid = Utils.validateCNPJ(value);
-                if (!isValid) {
-                  return Promise.reject(new Error('CNPJ Inválido'));
-                }
-                return Promise.resolve();
-              },
+    <Form layout="vertical" form={form} name="cnpjForm" onFinish={onFinish} autoComplete="off">
+      <Form.Item
+        label="CNPJ"
+        name="cnpj"
+        rules={[
+          {
+            required: true,
+            validator: (rule, value) => {
+              const isValid = Utils.validateCNPJ(value);
+              if (!isValid) {
+                return Promise.reject(new Error('CNPJ Inválido'));
+              }
+              return Promise.resolve();
             },
-          ]}
-        >
-          <Input id="cnpj" onChange={(e) => getCnpj(e.target.value)} />
-        </Form.Item>
+          },
+        ]}
+      >
+        <Input id="cnpj" onChange={(e) => getCnpj(e.target.value)} />
+      </Form.Item>
 
-        <Form.Item
-          label="Razão Social"
-          name="corporateName"
-          rules={[
-            {
-              required: true,
-              message: 'Campo obrigatorio!',
+      <Form.Item
+        label="Razão Social"
+        name="corporateName"
+        rules={[
+          {
+            required: true,
+            message: 'Campo obrigatorio!',
+          },
+        ]}
+      >
+        <Input />
+      </Form.Item>
+
+      <Form.Item
+        label="Nome Fantasia"
+        name="fantasyName"
+        rules={[
+          {
+            required: true,
+            message: 'Campo obrigatorio!',
+          },
+        ]}
+      >
+        <Input />
+      </Form.Item>
+
+      <Form.Item
+        label="Cep"
+        name="cep"
+        rules={[
+          {
+            required: true,
+            message: 'Campo obrigatorio!',
+          },
+        ]}
+      >
+        <Input id="cep" onChange={(e) => getAdressByCEP(e.target.value)} />
+      </Form.Item>
+
+      <Form.Item
+        label="Rua"
+        name="street"
+        rules={[
+          {
+            required: true,
+            message: 'Campo obrigatorio!',
+          },
+        ]}
+      >
+        <Input />
+      </Form.Item>
+
+      <Form.Item
+        label="Bairro"
+        name="district"
+        rules={[
+          {
+            required: true,
+            message: 'Campo obrigatorio!',
+          },
+        ]}
+      >
+        <Input />
+      </Form.Item>
+
+      <Form.Item
+        label="Número"
+        name="number"
+        rules={[
+          {
+            required: true,
+            message: 'Campo obrigatorio!',
+          },
+        ]}
+      >
+        <Input />
+      </Form.Item>
+
+      <Form.Item
+        label="Cidade"
+        name="city"
+        rules={[
+          {
+            required: true,
+            message: 'Campo obrigatorio!',
+          },
+        ]}
+      >
+        <Input />
+      </Form.Item>
+
+      <Form.Item
+        label="Estado"
+        name="state"
+        rules={[
+          {
+            required: true,
+            message: 'Campo obrigatorio!',
+          },
+        ]}
+      >
+        <Input />
+      </Form.Item>
+
+      <Form.Item
+        label="Email"
+        name="email"
+        rules={[
+          {
+            required: true,
+            message: 'Campo obrigatorio!',
+          },
+        ]}
+      >
+        <Input />
+      </Form.Item>
+
+      <Form.Item
+        label="Número do Telefone"
+        name="phone"
+        rules={[
+          {
+            required: true,
+            message: 'Campo obrigatorio!',
+          },
+        ]}
+      >
+        <Input id="phone" />
+      </Form.Item>
+
+      <Form.Item
+        label="CPF"
+        name="cpf"
+        rules={[
+          {
+            required: true,
+            validator: (rule, value) => {
+              const isValid = Utils.validateCPF(value);
+              if (!isValid) {
+                return Promise.reject(new Error('CPF Inválido'));
+              }
+              return Promise.resolve();
             },
-          ]}
-        >
-          <Input />
-        </Form.Item>
+          },
+        ]}
+      >
+        <Input id="cpf" />
+      </Form.Item>
 
-        <Form.Item
-          label="Nome Fantasia"
-          name="fantasyName"
-          rules={[
-            {
-              required: true,
-              message: 'Campo obrigatorio!',
-            },
-          ]}
-        >
-          <Input />
-        </Form.Item>
+      <Form.Item
+        label="Nome"
+        name="name"
+        rules={[
+          {
+            required: true,
+            message: 'Campo obrigatorio!',
+          },
+        ]}
+      >
+        <Input />
+      </Form.Item>
 
-        <Form.Item
-          label="Cep"
-          name="cep"
-          rules={[
-            {
-              required: true,
-              message: 'Campo obrigatorio!',
-            },
-          ]}
-        >
-          <Input id="cep" onChange={(e) => getAdressByCEP(e.target.value)} />
-        </Form.Item>
+      <Form.Item
+        label="Data de Nascimento"
+        name="birthDay"
+        rules={[
+          {
+            required: true,
+            message: 'Campo obrigatorio!',
+          },
+        ]}
+      >
+        <Input id="date" />
+      </Form.Item>
 
-        <Form.Item
-          label="Rua"
-          name="street"
-          rules={[
-            {
-              required: true,
-              message: 'Campo obrigatorio!',
-            },
-          ]}
-        >
-          <Input />
-        </Form.Item>
-
-        <Form.Item
-          label="Bairro"
-          name="district"
-          rules={[
-            {
-              required: true,
-              message: 'Campo obrigatorio!',
-            },
-          ]}
-        >
-          <Input />
-        </Form.Item>
-
-        <Form.Item
-          label="Número"
-          name="number"
-          rules={[
-            {
-              required: true,
-              message: 'Campo obrigatorio!',
-            },
-          ]}
-        >
-          <Input />
-        </Form.Item>
-
-        <Form.Item
-          label="Cidade"
-          name="city"
-          rules={[
-            {
-              required: true,
-              message: 'Campo obrigatorio!',
-            },
-          ]}
-        >
-          <Input />
-        </Form.Item>
-
-        <Form.Item
-          label="Estado"
-          name="state"
-          rules={[
-            {
-              required: true,
-              message: 'Campo obrigatorio!',
-            },
-          ]}
-        >
-          <Input />
-        </Form.Item>
-
-        <Form.Item
-          label="Email"
-          name="email"
-          rules={[
-            {
-              required: true,
-              message: 'Campo obrigatorio!',
-            },
-          ]}
-        >
-          <Input />
-        </Form.Item>
-
-        <Form.Item
-          label="Número do Telefone"
-          name="phone"
-          rules={[
-            {
-              required: true,
-              message: 'Campo obrigatorio!',
-            },
-          ]}
-        >
-          <Input id="phone" />
-        </Form.Item>
-
-        <Form.Item
-          label="CPF"
-          name="cpf"
-          rules={[
-            {
-              required: true,
-              validator: (rule, value) => {
-                const isValid = Utils.validateCPF(value);
-                if (!isValid) {
-                  return Promise.reject(new Error('CPF Inválido'));
-                }
-                return Promise.resolve();
-              },
-            },
-          ]}
-        >
-          <Input id="cpf" />
-        </Form.Item>
-
-        <Form.Item
-          label="Nome"
-          name="name"
-          rules={[
-            {
-              required: true,
-              message: 'Campo obrigatorio!',
-            },
-          ]}
-        >
-          <Input />
-        </Form.Item>
-
-        <Form.Item
-          label="Data de Nascimento"
-          name="birthDay"
-          rules={[
-            {
-              required: true,
-              message: 'Campo obrigatorio!',
-            },
-          ]}
-        >
-          <Input id="date" />
-        </Form.Item>
-
-        <Form.Item>
-          <Button style={{ width: '100%' }} type="primary" htmlType="submit">
-            Enviar
-          </Button>
-        </Form.Item>
-      </Form>
-    </div>
+      <Form.Item>
+        <Button style={{ width: '100%' }} type="primary" htmlType="submit">
+          Enviar
+        </Button>
+      </Form.Item>
+    </Form>
   );
 }

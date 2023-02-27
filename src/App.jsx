@@ -23,7 +23,7 @@ export default function App() {
     >
       <div className="container-page">
         <div className="container-form">
-          <h2 className="animated-title">Informações da Venda</h2>
+          <h2>Informações da Venda</h2>
           <Tabs defaultActiveKey="1">
             <TabPane tab="CNPJ" key="1">
               <FormCnpj />

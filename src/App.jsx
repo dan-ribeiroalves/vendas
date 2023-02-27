@@ -3,19 +3,11 @@
 import React from 'react';
 import ptBR from 'antd/es/locale/pt_BR';
 import { ConfigProvider, Tabs, theme } from 'antd';
-import Form from './Pages/Form/Form';
+import FormCnpj from './Pages/Form/FormCnpj';
+import FormCpf from './Pages/Form/FormCpf';
 import './Assets/Styles/Global.scss';
 
 const { TabPane } = Tabs;
-
-function TabComponent2() {
-  return (
-    <div>
-      <h1>Conteúdo da guia 2</h1>
-      <p>Texto de exemplo para a guia 2</p>
-    </div>
-  );
-}
 
 export default function App() {
   return (
@@ -24,20 +16,20 @@ export default function App() {
       theme={{
         algorithm: theme.defaultAlgorithm,
         token: {
-          colorPrimary: '#333333',
+          colorPrimary: '#0f59d2',
           borderRadius: 8,
         },
       }}
     >
       <div className="container-page">
         <div className="container-form">
-          <h1>Informações da Venda</h1>
+          <h2 className="animated-title">Informações da Venda</h2>
           <Tabs defaultActiveKey="1">
             <TabPane tab="CNPJ" key="1">
-              <Form />
+              <FormCnpj />
             </TabPane>
             <TabPane tab="CPF" key="2">
-              <TabComponent2 />
+              <FormCpf />
             </TabPane>
           </Tabs>
         </div>

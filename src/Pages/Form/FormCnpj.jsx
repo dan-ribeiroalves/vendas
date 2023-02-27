@@ -1,52 +1,24 @@
 /* eslint-disable object-curly-newline */
-import { Button, Form, Input, message } from 'antd';
+import { Button, Form, Input } from 'antd';
 import React, { useEffect } from 'react';
 import Inputmask from 'inputmask';
-import './FormPage.scss';
-import axios from 'axios';
 import Utils from '../../Assets/Utils';
 
 export default function FormCnpj() {
   const [form] = Form.useForm();
-  const onFinish = (values) => {
-    console.log('Success:', values);
-  };
 
-  const getCnpj = async (cnpj) => {
-    if (cnpj.replace(/[_\-/.]/g, '').length === 14) {
-      await axios
-        .get(`https://br24.nbwdigital.com.br/goprime/api/cnpj/${cnpj}`)
-        .then((res) => console.log(res));
-    }
-  };
-
-  const getAdressByCEP = async (cep) => {
-    if (cep.replace(/[_\-/.]/g, '').length === 8) {
-      const address = await axios
-        .get(`https://viacep.com.br/ws/${cep}/json`)
-        .then((res) => res.data)
-        .catch((err) => {
-          console.log(err);
-          message.error('Erro ao buscar CEP!');
-        });
-
-      const data = {};
-      data.street = address.logradouro;
-      data.district = address.bairro;
-      data.complement = address.complemento;
-      data.city = address.localidade;
-      data.state = address.uf;
-
-      form.setFieldsValue({ ...form.getFieldsValue(), ...data });
-    }
+  const onFinish = async (values) => {
+    const data = values;
+    const url = Utils.generateUrl(data);
+    window.location.href = url;
   };
 
   useEffect(() => {
-    Inputmask({ mask: '(99) 9{1,9}' }).mask(document.getElementById('phone'));
-    Inputmask({ mask: '99999-999' }).mask(document.getElementById('cep'));
+    Inputmask({ mask: '(99) 9{1,9}' }).mask(document.getElementById('phoneFromCnpj'));
+    Inputmask({ mask: '99999-999' }).mask(document.getElementById('cepFromCnpj'));
     Inputmask({ mask: '99.999.999/9999-99' }).mask(document.getElementById('cnpj'));
-    Inputmask({ mask: '99/99/9999' }).mask(document.getElementById('date'));
-    Inputmask({ mask: '999.999.999-99' }).mask(document.getElementById('cpf'));
+    Inputmask({ mask: '99/99/9999' }).mask(document.getElementById('dateFromCnpj'));
+    Inputmask({ mask: '999.999.999-99' }).mask(document.getElementById('cpfFromCnpj'));
   }, []);
 
   return (
@@ -67,7 +39,7 @@ export default function FormCnpj() {
           },
         ]}
       >
-        <Input id="cnpj" onChange={(e) => getCnpj(e.target.value)} />
+        <Input id="cnpj" onChange={(e) => Utils.getCnpj(e.target.value, form)} />
       </Form.Item>
 
       <Form.Item
@@ -106,7 +78,7 @@ export default function FormCnpj() {
           },
         ]}
       >
-        <Input id="cep" onChange={(e) => getAdressByCEP(e.target.value)} />
+        <Input id="cepFromCnpj" onChange={(e) => Utils.getAdressByCEP(e.target.value, form)} />
       </Form.Item>
 
       <Form.Item
@@ -197,7 +169,7 @@ export default function FormCnpj() {
           },
         ]}
       >
-        <Input id="phone" />
+        <Input id="phoneFromCnpj" />
       </Form.Item>
 
       <Form.Item
@@ -216,7 +188,7 @@ export default function FormCnpj() {
           },
         ]}
       >
-        <Input id="cpf" />
+        <Input id="cpfFromCnpj" />
       </Form.Item>
 
       <Form.Item
@@ -242,7 +214,7 @@ export default function FormCnpj() {
           },
         ]}
       >
-        <Input id="date" />
+        <Input id="dateFromCnpj" />
       </Form.Item>
 
       <Form.Item>
